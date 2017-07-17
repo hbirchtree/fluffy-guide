@@ -20,7 +20,7 @@ class UdpBeacon(object):
     def socket(self) -> socket.socket:
         return self.sock
 
-    def send(self, jsonData: str) -> None:
+    def send(self, jsonData: dict) -> None:
         encoder = json.JSONEncoder()
         serialized = encoder.encode(jsonData).encode()
         self.sock.sendto(serialized, (self.broadcast_address,
