@@ -2,6 +2,10 @@ from typing import NamedTuple, List, Dict, Iterator, Any
 from os.path import basename
 from glob import glob
 import socket
+from platform import uname, linux_distribution, mac_ver, win32_ver
+
+
+PLATFORM = uname().system
 
 
 NETWORK_PREFIXES = ['enp', 'eth',
@@ -23,6 +27,33 @@ NetInterface = NamedTuple('NetInterface',
                               ('address', str),
                               ('mac', str)
                           ])
+
+ProcessorDescription = NamedTuple('ProcessorDescription',
+                                  [
+                                      ('manufacturer', str),
+                                      ('model', str),
+                                      ('architecture', str)
+                                  ])
+
+SystemDescription = NamedTuple('SystemDescription',
+                               [
+                                   ('variant', str),
+                                   ('version', str),
+                                   ('machine', str),
+                                   ('distro', str),
+                                   ('distro_version', str),
+                               ])
+
+CoreDescription = NamedTuple('CoreDescription',
+                             [
+                                 ('max', float),
+                                 ('current', float),
+                                 ('min', float),
+                                 ('node', str),
+                                 ('governor', str),
+                                 ('available_governors', List[str]),
+                                 ('hwmon_sensor', str)
+                             ])
 
 
 def read_string(fn: str) -> str:
